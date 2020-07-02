@@ -10,6 +10,7 @@ class Flight:
         self._number = number
 
     def number(self):
+        test= 2
         return self._number
 
     def airline(self):
