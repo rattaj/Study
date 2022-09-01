@@ -1,0 +1,47 @@
+Task:
+Write down an SQL query to identify the id's with highest salary per department.
+(Preferable SQL syntax: MySQL, any other is acceptable as well)
+
+Info:
+Database: DEMO
+Table: EMPLOYEE
+Schema: id INT, department String, firstname String, lastname String, email String, salary Numeric, reg_date TIMESTAMP;
+
+Bonus tasks:
+1. Create table statement
+2. Second possible solution
+
+====================================================================================
+Solution:
+SQL query to identify the id's with highest salary per department:
+SELECT id
+FROM
+    DEMO.EMPLOYEE
+WHERE
+    (department , salary) IN (
+                              SELECT department, MAX(salary)
+                              FROM DEMO.EMPLOYEE
+                              GROUP BY department
+        );
+
+Bonus tasks:
+1. Create table statement:
+CREATE TABLE EMPLOYEE (
+    id INT,
+    department VARCHAR(50),
+    firstname VARCHAR(50),
+    lastname VARCHAR(50),
+    email VARCHAR(100),
+    salary FLOAT,
+    reg_date TIMESTAMP
+);
+
+2. Second possible solution
+SELECT id
+FROM DEMO.EMPLOYEE OUTER_EMP
+WHERE
+    salary = (SELECT MAX(salary)
+                    FROM
+                        DEMO.EMPLOYEE INNER_EMP
+                    WHERE
+                        OUTER_EMP.department = INNER_EMP.department);
